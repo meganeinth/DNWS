@@ -572,7 +572,18 @@ namespace DNWS
                                     {
                                         if (playLink != "")
                                         {
-                                            sb.Append(String.Format("<a href=\"{0}&row={1}&col={2}\">?</a>", playLink, row, col));
+                                            
+                                              
+                                            if (myPlayer == OXBoard.X_PLAYER)
+                                            {
+                                                sb.Append(String.Format("<a href=\"{0}&row={1}&col={2}\">X</a>", playLink, row, col));
+                                            }
+                                                else if (myPlayer == OXBoard.O_PLAYER)
+                                            {
+                                                sb.Append(String.Format("<a href=\"{0}&row={1}&col={2}\">O</a>", playLink, row, col));
+                                            }
+                                               
+                                            
                                         }
                                         else
                                         {
