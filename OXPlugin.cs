@@ -323,7 +323,7 @@ namespace DNWS
                     String oPlayer = (game.OPlayer != null) ? game.OPlayer.Name : "--";
                     sb.Append(String.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td>", game.Index, xPlayer, oPlayer));
 
-                    if (parameters.ContainsKey("username") && (game.Status == Game.CONT || game.Status == Game.CREATED_O || game.Status == Game.CREATED_X) )
+                    if (parameters.ContainsKey("username") && (game.Status == Game.CONT || game.Status == Game.CREATED_O || game.Status == Game.CREATED_X))
                     {
                         if (parameters["username"] == xPlayer || parameters["username"] == oPlayer)
                         {
@@ -354,9 +354,9 @@ namespace DNWS
                         else if (game.Status == Game.DRAW)
                         {
                             sb.Append("<td>Draw</td>");
-                        } 
-                        
-                        else if(game.Status != Game.CONT)
+                        }
+
+                        else if (game.Status != Game.CONT)
                         {
                             sb.Append("<td>WAITING</td>");
                         }
@@ -378,24 +378,34 @@ namespace DNWS
                     sb.Append("<h2>Create new player</h2>");
                     sb.Append("<form method=\"get\">");
                     sb.Append("Username: <input type=\"text\" name=\"username\" value=\"\" /> <br />");
-                    sb.Append("Password: <input type=\"password\" name=\"password\" value=\"\" /> <br />");
-                    sb.Append("Password confirm: <input type=\"password\" name=\"password_confirm\" value=\"\" /> <br />");
+                    sb.Append("Password: <input type=\"text\" name=\"password\" value=\"\" /> <br />");
                     sb.Append("<input type=\"hidden\" name=\"action\" value=\"addnewplayer\" /> <br />");
-                    sb.Append("<input type=\"submit\" name=\"submit\" value=\"Create Player\" /> <br />");
+                    sb.Append("<input type=\"submit\" name=\"submit\" value=\"Login\" /> <br />");
                     sb.Append("</form>");
                 }
                 else if (parameters["action"] == "addnewplayer") // create new player logic
                 {
-                    if (parameters.ContainsKey("username") && parameters["username"] != "" && parameters.ContainsKey("password") && parameters["password"] != "" && parameters["password"] == parameters["password_confirm"])
+                    if (parameters["password"].Length < 8)
+                    {
+                        sb.Append("<h2>Error: Password should to 8 characters or more than 8 characters!!</h2>");
+                        sb.Append("<a href=\"/ox?action=newplayer\">Click here to fill again!!</a>");
+                        sb.Append("<br>");
+                        sb.Append("<a href=\"/ox\">Click here to go back to home page</a>");
+                    }
+
+                    else if (parameters.ContainsKey("username") && parameters["username"] != "" && parameters.ContainsKey("password") && parameters["password"] != "")
                     {
                         AddPlayer(parameters["username"].Trim(), parameters["password"].Trim());
                         sb.Append("<h2>Player added successfully</h2>");
                         sb.Append(String.Format("Please note your login is <b>{0}</b> and password is <b>{1}</b>. <br />", parameters["username"], parameters["password"]));
                         sb.Append(String.Format("<a href=\"/ox?username={0}\">Click here to go back to home page</a>", parameters["username"]));
                     }
+
                     else
                     {
-                        sb.Append("<h2>Error: Username/password/password confirm are missing</h2>");
+                        sb.Append("<h2>Error: Username/password are missing</h2>");
+                        sb.Append("<a href=\"/ox?action=newplayer\">Click here to fill again!!</a>");
+                        sb.Append("<br>");
                         sb.Append("<a href=\"/ox\">Click here to go back to home page</a>");
 
                     }
@@ -499,8 +509,8 @@ namespace DNWS
                     Game game = GetGameByID(Int16.Parse(parameters["game"]));
                     char myPlayer;
                     char gameStatus = Game.CONT;
-                    
-                 
+
+
                     if (game == null)
                     {
                         sb.Append("<h2>Error: game doesn't exists, start one at home page.");
@@ -516,12 +526,15 @@ namespace DNWS
                         {
                             sb.Append(String.Format("<h2>Game {0} between X:{1} and O:<u>{2}</u></h2>", parameters["game"], game.XPlayer.Name, game.OPlayer.Name));
                         }
-                        if(game.XPlayer.Name == parameters["username"]) {
+                        if (game.XPlayer.Name == parameters["username"])
+                        {
                             myPlayer = OXBoard.X_PLAYER;
-                        } else {
+                        }
+                        else
+                        {
                             myPlayer = OXBoard.O_PLAYER;
                         }
-                        if(parameters.ContainsKey("row") && parameters.ContainsKey("col")) // User wants to play
+                        if (parameters.ContainsKey("row") && parameters.ContainsKey("col")) // User wants to play
                         {
                             gameStatus = game.Turn(Int16.Parse(parameters["row"]), Int16.Parse(parameters["col"]));
                         }
@@ -587,7 +600,7 @@ namespace DNWS
                             sb.Append("</table>");
                         }
                         sb.Append(String.Format("<a href=\"/ox?username={0}\">Click here to go back to home page.</a>", parameters["username"]));
-                    }                   
+                    }
                 }
             }
             response.body = Encoding.UTF8.GetBytes(sb.ToString());
