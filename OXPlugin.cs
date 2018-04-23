@@ -175,7 +175,7 @@ namespace DNWS
         }
 
         public static char X_WIN = 'x';
-        public static char O_WIN = 'O';
+        public static char O_WIN = 'o';
         public static char DRAW = 'D';
         public static char CONT = 'C';
         public static char ERROR = 'E';
@@ -522,7 +522,11 @@ namespace DNWS
                         }
                         if(parameters.ContainsKey("row") && parameters.ContainsKey("col")) // User wants to play
                         {
+                            try{
                             gameStatus = game.Turn(Int16.Parse(parameters["row"]), Int16.Parse(parameters["col"]));
+                            }catch(Exception e){
+                                sb.Append("Out off scope");
+                            }
                         }
 
                         if (game.Status == Game.X_WIN)
