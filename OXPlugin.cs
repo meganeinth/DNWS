@@ -360,6 +360,9 @@ namespace DNWS
                         {
                             sb.Append("<td>WAITING</td>");
                         }
+                        else{          //new impliment 24/4/2561
+                            sb.Append("<td>Cancle</td>");
+                        }
                     }
 
                 }
