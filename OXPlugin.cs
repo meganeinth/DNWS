@@ -380,7 +380,7 @@ namespace DNWS
                     sb.Append("Username: <input type=\"text\" name=\"username\" value=\"\" /> <br />");
                     sb.Append("Password: <input type=\"text\" name=\"password\" value=\"\" /> <br />");
                     sb.Append("<input type=\"hidden\" name=\"action\" value=\"addnewplayer\" /> <br />");
-                    sb.Append("<input type=\"submit\" name=\"submit\" value=\"Login\" /> <br />");
+                    sb.Append("<input type=\"submit\" name=\"submit\" value=\"Create\" /> <br />");
                     sb.Append("</form>");
                 }
                 else if (parameters["action"] == "addnewplayer") // create new player logic
