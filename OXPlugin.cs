@@ -94,13 +94,18 @@ namespace DNWS
             {
                 return false;
             }
+            if (row > 2 || row < 0 || col > 2 || col < 0){
+                return false;
+            }
             if (_board[row, col] != EMPTY)
             {
                 return false;
             }
-            _board[row, col] = player;
-            _playCount++;
-            return true;
+            else{
+                _board[row, col] = player;
+                _playCount++;
+                return true;
+            }
         }
 
         public char CheckWin()
