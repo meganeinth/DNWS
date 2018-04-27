@@ -175,7 +175,7 @@ namespace DNWS
         }
 
         public static char X_WIN = 'x';
-        public static char O_WIN = 'O';
+        public static char O_WIN = 'o';
         public static char DRAW = 'D';
         public static char CONT = 'C';
         public static char ERROR = 'E';
