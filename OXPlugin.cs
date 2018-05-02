@@ -378,7 +378,7 @@ namespace DNWS
                     sb.Append("<h2>Create new player</h2>");
                     sb.Append("<form method=\"get\">");
                     sb.Append("Username: <input type=\"text\" name=\"username\" value=\"\" /> <br />");
-                    sb.Append("Password: <input type=\"text\" name=\"password\" value=\"\" /> <br />");
+                    sb.Append("Password: <input type=\"password\" name=\"password\" value=\"\" /> <br />");
                     sb.Append("<input type=\"hidden\" name=\"action\" value=\"addnewplayer\" /> <br />");
                     sb.Append("<input type=\"submit\" name=\"submit\" value=\"Login\" /> <br />");
                     sb.Append("</form>");
