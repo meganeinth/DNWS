@@ -44,6 +44,7 @@ namespace DNWS
 
     public class HTTPProcessor
     {
+        static public Cookie cookie;
         protected class PluginInfo
         {
             protected string _path;
@@ -169,6 +170,8 @@ namespace DNWS
 
             request = new HTTPRequest(requestStr);
             request.addProperty("RemoteEndPoint", _client.RemoteEndPoint.ToString());
+
+            cookie.Set("test","sdfsdf");
 
             // We can handle only GET now
             if(request.Status != 200) {

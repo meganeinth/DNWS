@@ -22,7 +22,7 @@ namespace DNWS
             get { return _body; }
             set { _body = value; }
         }
-
+        protected Cookie _cookie;
 
         protected string _type = "text/html";
         public string type
@@ -62,7 +62,15 @@ namespace DNWS
                 headerResponse.Append("Content-Type: ").Append(type).Append("\r\n");
                 headerResponse.Append("Connection: close\r\n");
                 headerResponse.Append("Server: DNWS 1.0\r\n");
+
+
+                string setCoookie = _cookie.setString();
+                if(setCoookie.Length >0){
+                    headerResponse.Append("Set-Cookie:"+setCoookie+"\r\n");
+                }
+            
                 headerResponse.Append("\r\n");
+            
                 return headerResponse.ToString();
             }
         }
@@ -70,6 +78,7 @@ namespace DNWS
         public HTTPResponse(int status)
         {
             _status = status;
+            _cookie = HTTPProcessor.cookie;
         }
 
     }

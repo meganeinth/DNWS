@@ -7,6 +7,8 @@ namespace DNWS
 {
   public class HTTPRequest
   {
+
+    protected Cookie _cookie;
     protected String _url;
     protected String _filename;
     protected static Dictionary<String, String> _propertyListDictionary = null;
@@ -94,6 +96,11 @@ namespace DNWS
           addProperty(pair[0], pair[1]);
         }
       }
+
+      _cookie = new Cookie(getPropertyByKey("cookie"));
+
+      HTTPProcessor.cookie = _cookie;
+
     }
     public String getPropertyByKey(String key)
     {
