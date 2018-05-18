@@ -461,7 +461,7 @@ namespace DNWS
                 else if (parameters["action"] == "startgame") // create new game
                 {
                     sb.Append("<h2>Start new game</h2>");
-                    sb.Append(String.Format("Choose side: <a href=\"/ox?action=chooseside&side=x&username={0}\">X</a> or <a href=\"/ox?action=chooseside&side=x&username={0}\">O</a>?<br /><br />", parameters["username"]));
+                    sb.Append(String.Format("Choose side: <a href=\"/ox?action=chooseside&side=x&username={0}\">X</a> or <a href=\"/ox?action=chooseside&side=o&username={0}\">O</a>?<br /><br />", parameters["username"]));
                     sb.Append(String.Format("<a href=\"/ox?username={0}\">Click here to go back to home page.</a>", parameters["username"]));
                 }
                 else if (parameters["action"] == "chooseside")
@@ -475,18 +475,21 @@ namespace DNWS
                     }
                     else
                     {
+						
                         if (parameters["side"] == "x") // choose to play as X
                         {
                             id = NewGame(player, null);
                             Game game = GetGameByID(id);
                             game.Status = Game.CREATED_X;
+
                         }
-                        else
-                        {
-                            id = NewGame(player, null);
+						else
+						{
+                            id = NewGame( null, player);
                             Game game = GetGameByID(id);
                             game.Status = Game.CREATED_O;
-                        }
+				
+						}
                         sb.Append(String.Format("<h2>Start new game by {0} as {1}. The game ID is {2}.</h2>", parameters["username"], parameters["side"], id));
                         sb.Append("You will need to wait for another player to join the game.<br /><br />");
                         sb.Append(String.Format("<a href=\"/ox?username={0}\">Click here to go back to home page.</a>", parameters["username"]));
