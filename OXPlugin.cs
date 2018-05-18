@@ -312,8 +312,9 @@ namespace DNWS
                     sb.Append(String.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>", player.Name, player.WinNum, player.LostNum, player.DrawNum));
                 }
                 sb.Append("</table>");
-                sb.Append("<a href=\"/ox?action=newplayer\">Create new player</a>");
-
+		if (!parameters.ContainsKey("username")) {
+                	sb.Append("<a href=\"/ox?action=newplayer\">Create new player</a>");
+		}
                 // Show game list
                 sb.Append("<h2>Game's List</h2>");
                 sb.Append("<table border=\"1\"><tr><td>Game #</td><td>X</td><td>O</td><td>Action</td></tr>");
