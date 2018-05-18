@@ -603,7 +603,7 @@ namespace DNWS
                     sb.Append("<a href=\"/ox\">Click here to go back to home page</a>");
                 }
             }
-            response.body = Encoding.UTF8.GetBytes(sb.ToString());
+            response.Body = Encoding.UTF8.GetBytes(sb.ToString());
             return response;
         }
 
