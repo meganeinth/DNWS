@@ -364,11 +364,27 @@ namespace DNWS
         /// </summary>
         public void Start()
         {
+            bool check = false;
+            int attempt = 0; //number of attempt to start server
             while (true) {
                 try
                 {
                     // Create listening socket, queue size is 5 now.
-                    _port = Convert.ToInt32(Program.Configuration["Port"]);
+                    //if port can't use to create socket then try another port. 
+                    if (check & attempt == 1) {
+                        //Change to port 8000 
+                        _port = 8000;
+                        _parent.Log("Try changing port to port: " + _port);
+                    }
+                    //Port can't use to create socket then try other port by increasing port.
+                    else if (check)
+                    {
+                        _port = _port + 1;
+                        _parent.Log("Try changing port to port: " + _port);
+                    }
+                    else {
+                        _port = Convert.ToInt32(Program.Configuration["Port"]);
+                    }
                     IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, _port);
                     serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     serverSocket.Bind(localEndPoint);
@@ -396,9 +412,21 @@ namespace DNWS
                 }
                 catch (Exception ex)
                 {
-                    _parent.Log("Server started unsuccessfully.");
-                    _parent.Log(ex.Message);
+                    //if attempt more than 10 then stop endless loop for trying to start server.
+                    if (attempt > 10)
+                    {
+                        _parent.Log("Server started unsuccessfully.");
+                        _parent.Log(ex.Message);
+                        _parent.Log("Over attempt to start server");
+                        break;
+                    }
+                    else {
+                        _parent.Log("Server started unsuccessfully.");
+                        _parent.Log(ex.Message);
+                    }
                 }
+                check = true;
+                attempt++;
                 _port = _port + 1;
             }
             if (_threadModel is "Single") {
