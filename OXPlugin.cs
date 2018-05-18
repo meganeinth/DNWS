@@ -465,9 +465,18 @@ namespace DNWS
                 }
                 else if (parameters["action"] == "startgame") // create new game
                 {
-                    sb.Append("<h2>Start new game</h2>");
-                    sb.Append(String.Format("Choose side: <a href=\"/ox?action=chooseside&side=x&username={0}\">X</a> or <a href=\"/ox?action=chooseside&side=o&username={0}\">O</a>?<br /><br />", parameters["username"]));
-                    sb.Append(String.Format("<a href=\"/ox?username={0}\">Click here to go back to home page.</a>", parameters["username"]));
+                    if (parameters["username"] != "x" || parameters["username"] != "o")//check if username parameter is x or o
+                    {
+                        sb.Append(String.Format("<h2>Error, user {0} Is not valid</h2>", parameters["username"]));
+                        sb.Append("<a href=\"/ox\">Click here to go back to home page (you will need to login again)</a>");
+                    }
+                    else
+                    {
+                        sb.Append("<h2>Start new game</h2>");
+                        sb.Append(String.Format("Choose side: <a href=\"/ox?action=chooseside&side=x&username={0}\">X</a> or <a href=\"/ox?action=chooseside&side=o&username={0}\">O</a>?<br /><br />", parameters["username"]));
+                        sb.Append(String.Format("<a href=\"/ox?username={0}\">Click here to go back to home page.</a>", parameters["username"]));
+                    }
+                    
                 }
                 else if (parameters["action"] == "chooseside")
                 {
