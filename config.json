@@ -3,18 +3,11 @@
     "Port": "8080",
     "ThreadPoolSize" : "10",
     "AllowThreadModel" : "Pool|Multi|Single",
-    "ThreadModel" : "Single", 
+    "ThreadModel" : "Pool", 
     "Plugins" : [
         {
             "Path" : "stat",
             "Class" : "DNWS.StatPlugin",
-            "Preprocessing" : "true",
-            "Postprocessing" : "false" ,
-            "Singleton" : "false"
-        },
-        {
-            "Path" : "clientinfo",
-            "Class" : "DNWS.ClientInfoPlugin",
             "Preprocessing" : "true",
             "Postprocessing" : "false" ,
             "Singleton" : "false"
@@ -26,30 +19,14 @@
             "Postprocessing" :"false" 
         },
         {
-            "Path" : "gpu",
-            "Class" : "DNWS.GPUPlugin",
-            "Preprocessing" : "false",
-            "Postprocessing" :"false",
-            "Parameters" : {
-                "AllowDeviceType" : "Gpu|Cpu|All|Default|Accelerator",
-                "DeviceType" : "Gpu"
-            }
-        },
-        {
             "Path" : "delay",
             "Class" : "DNWS.DelayPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
         },
         {
-            "Path" : "twitter",
-            "Class" : "DNWS.TwitterPlugin",
-            "Preprocessing" : "false",
-            "Postprocessing" :"false" 
-        },
-        {
-            "Path" : "twitterapi",
-            "Class" : "DNWS.TwitterAPIPlugin",
+            "Path" : "clientinfo",
+            "Class" : "DNWS.ClientInfoPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
         }
