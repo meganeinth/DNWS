@@ -301,7 +301,7 @@ namespace DNWS
                 }
                 else
                 {
-                    sb.Append(String.Format("<h2>Wellcome {0}</h2>", parameters["username"]));
+                    sb.Append(String.Format("<h2>Welcome {0}</h2>", parameters["username"]));
                 }
 
                 // Show player list
